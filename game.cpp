@@ -1,19 +1,21 @@
 #include "Framework.h"
 
-#include "Player.h"
+#include "Game.h"
+#include "getResolution.h"
 
 /* Test Framework realization */
 class MyFramework : public Framework {
 public:
+	static constexpr Resolution defaultRes { 600, 800 };
+	Resolution resolution;
+
 	virtual void PreInit(int& width, int& height, bool& fullscreen) {
-		width = 1320;
-		height = 720;
+		width = resolution.x;
+		height = resolution.y;
 		fullscreen = false;
 	}
 
 	virtual bool Init() {
-		Player player {{50, 50}, "./data/49-Breakout-Tiles.png"}; // tmp
-		player.draw(); // tmp
 		return true;
 	}
 
@@ -22,30 +24,33 @@ public:
 
 	virtual bool Tick() {
 		drawTestBackground();
-
-		Player player {{50, 50}, "./data/49-Breakout-Tiles.png"}; // tmp
-		player.draw(); // tmp
+		Game::getGame()->render();
 
 		return false;
 	}
 
 	virtual void onMouseMove(int x, int y, int xrelative, int yrelative) {
+		Game::getGame()->setMousePos(x, y);
 	}
 
 	virtual void onMouseButtonClick(FRMouseButton button, bool isReleased) {
 	}
 
 	virtual void onKeyPressed(FRKey k) {
+		Game::getGame()->handleKeyPress(k, true);
 	}
 
 	virtual void onKeyReleased(FRKey k) {
+		Game::getGame()->handleKeyPress(k, false);
 	}
 
 	virtual const char* GetTitle() override {
 		return "Arcanoid";
 	}
+
+	MyFramework(Resolution res) : resolution{ res.x && res.y ? res : defaultRes } {}
 };
 
 int main(int argc, char** argv) {
-	return run(new MyFramework());
+	return run(new MyFramework(getResolution(argc, argv)));
 }
