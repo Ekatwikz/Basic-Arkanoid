@@ -5,31 +5,32 @@
 #include "Player.h"
 #include "Ball.h"
 #include "Keyboard.h"
-
-#include <iostream> //tmp
+#include "GameBoundary.h"
 
 class Game {
 private:
+	bool gameStarted;
 	static Game* game;
 
-	Player* player;
+	GameBoundary gameBoundary;
 	KeyboardState keyboard;
 	Vec2 mousePos;
 
+	Player* player;
 	Ball* ball;
 
-	std::vector<Entity*> entities;
+	std::vector<DrawableEntity*> drawables;
 	Game() {
-		entities.push_back(player = new Player({50, 50}, "./data/49-Breakout-Tiles.png"));
-		entities.push_back(ball = new Ball({0, 0}, "./data/63-Breakout-Tiles.png"));
+		drawables.push_back(player = new Player({50, 50}, "./data/49-Breakout-Tiles.png"));
+		drawables.push_back(ball = new Ball({0, 0}, "./data/63-Breakout-Tiles.png"));
 	}
 
 	~Game() {
-		for (Entity* pEnt : entities) {
+		for (DrawableEntity* pEnt : drawables) {
 			delete pEnt;
 		}
 
-		entities.clear();
+		drawables.clear();
 	}
 
 public:
@@ -49,16 +50,31 @@ public:
 	}
 
 	void render() {
-		ball->moveToMouse(mousePos); // should be if game didn't start
-		*player += keyboard.getVec2() * 2;
+		if (!gameStarted) {
+			ball->moveToMouse(mousePos);
+		}
 
-		for (Entity* pEnt : entities) {
+		if (!player->hasCollided(gameBoundary)) {
+			*player += keyboard.getVec2() * 2;
+		}
+
+		for (DrawableEntity* pEnt : drawables) {
 			pEnt->draw();
+		}
+	}
+
+	void handleClick(FRMouseButton button, bool isReleased) {
+		if (!gameStarted) {
+			gameStarted = true;
 		}
 	}
 
 	void handleKeyPress(FRKey key, bool isPressed) {
 		keyboard.handleKeyPress(key, isPressed);
+	}
+
+	void setSize(Vec2 size) {
+		gameBoundary = { size };
 	}
 };
 

@@ -16,6 +16,7 @@ public:
 	}
 
 	virtual bool Init() {
+		Game::getGame()->setSize(resolution);
 		return true;
 	}
 
@@ -34,6 +35,7 @@ public:
 	}
 
 	virtual void onMouseButtonClick(FRMouseButton button, bool isReleased) {
+		Game::getGame()->handleClick(button, isReleased);
 	}
 
 	virtual void onKeyPressed(FRKey k) {
@@ -48,7 +50,7 @@ public:
 		return "Arcanoid";
 	}
 
-	MyFramework(Resolution res) : resolution{ res.x && res.y ? res : defaultRes } {}
+	MyFramework(Resolution res) : resolution{ res.x && res.y ? res : defaultRes } { }
 };
 
 int main(int argc, char** argv) {

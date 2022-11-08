@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Entity.h"
+#include "DrawableEntity.h"
 
-class Ball : public Entity {
+class Ball : public DrawableEntity {
 private:
 	static constexpr Vec2 defaultSize { 20, 20 };
 
 public:
-	Ball (Vec2 position, const char* spritePath) : Entity{ position, defaultSize, spritePath } {}
+	Ball (Vec2 position, const char* spritePath) : DrawableEntity{ position, defaultSize, spritePath } {}
 
 	void moveToMouse(Vec2 mousePos) {
 		Vec2 size = getSize();

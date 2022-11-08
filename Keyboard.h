@@ -26,11 +26,14 @@ typedef struct KeyPair {
 
 
 class KeyboardState {
-public: 
+private:
 	KeyPair leftRight, upDown;
 	enum { KB_LEFT, KB_RIGHT };
 	enum { KB_UP, KB_DOWN };
 
+	Vec2 vec;
+
+public: 
 	void handleKeyPress(FRKey key, bool isPressed) {
 		switch (key) {
 			case FRKey::LEFT:
@@ -48,22 +51,22 @@ public:
 			default: // ??
 				break;
 		}
-	}
 
-	[[ nodiscard ]] Vec2 getVec2() const {
-		int x = 0, y = 0;
+		vec = { 0, 0 };
 		if (leftRight[KB_LEFT] == KeyPair::PRESSED) {
-			x = -1;
+			vec.x = -1;
 		} else if (leftRight[KB_RIGHT] == KeyPair::PRESSED) {
-			x = 1;
+			vec.x = 1;
 		}
 
 		if (upDown[KB_UP] == KeyPair::PRESSED) {
-			y = -1;
+			vec.y = -1;
 		} else if (upDown[KB_DOWN] == KeyPair::PRESSED) {
-			y = 1;
+			vec.y = 1;
 		}
+	}
 
-		return { x, y };
+	[[ nodiscard ]] Vec2 getVec2() const {
+		return vec;
 	}
 };
