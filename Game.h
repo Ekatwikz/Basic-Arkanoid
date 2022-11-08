@@ -2,10 +2,9 @@
 
 #include <vector>
 
-#include "Player.h"
 #include "Ball.h"
-#include "Keyboard.h"
 #include "GameBoundary.h"
+#include "Player.h"
 
 class Game {
 private:
@@ -13,8 +12,7 @@ private:
 	static Game* game;
 
 	GameBoundary gameBoundary;
-	KeyboardState keyboard;
-	Vec2 mousePos;
+	Vec2<> mousePos;
 
 	Player* player;
 	Ball* ball;
@@ -50,12 +48,15 @@ public:
 	}
 
 	void render() {
-		if (!gameStarted) {
-			ball->moveToMouse(mousePos);
-		}
+		player->setVelocity(player->hasCollided(gameBoundary));
+		player->move();
 
-		if (!player->hasCollided(gameBoundary)) {
-			*player += keyboard.getVec2() * 2;
+		if (!gameStarted) {
+			ball->moveCenterTo(mousePos);
+		} else {
+			gameStarted = ball->setVelocity(ball->hasCollided(gameBoundary), ball->hasCollided(*player));
+
+			ball->move();
 		}
 
 		for (DrawableEntity* pEnt : drawables) {
@@ -70,11 +71,12 @@ public:
 	}
 
 	void handleKeyPress(FRKey key, bool isPressed) {
-		keyboard.handleKeyPress(key, isPressed);
+		player->updateKeyboard(key, isPressed);
 	}
 
-	void setSize(Vec2 size) {
+	void setSize(Vec2<> size) {
 		gameBoundary = { size };
+		player->moveCenterTo({ size.x / 2, static_cast<int>(size.y * 0.85F) });
 	}
 };
 

@@ -15,7 +15,7 @@ typedef struct KeyPair {
 			keyStates[!pos] *= -1;
 		}
 
-		// set state of this position
+		// set state of new position
 		keyStates[pos] = state;
 	}
 
@@ -31,7 +31,7 @@ private:
 	enum { KB_LEFT, KB_RIGHT };
 	enum { KB_UP, KB_DOWN };
 
-	Vec2 vec;
+	Vec2<> vec;
 
 public: 
 	void handleKeyPress(FRKey key, bool isPressed) {
@@ -66,7 +66,7 @@ public:
 		}
 	}
 
-	[[ nodiscard ]] Vec2 getVec2() const {
+	[[ nodiscard ]] Vec2<> getVec2() const {
 		return vec;
 	}
 };

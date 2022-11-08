@@ -3,12 +3,16 @@
 #include "Game.h"
 #include "getResolution.h"
 
+using GetArg::Resolution;
+using GetArg::getResolution;
+
 /* Test Framework realization */
 class MyFramework : public Framework {
-public:
+private:
 	static constexpr Resolution defaultRes { 600, 800 };
 	Resolution resolution;
 
+public:
 	virtual void PreInit(int& width, int& height, bool& fullscreen) {
 		width = resolution.x;
 		height = resolution.y;
