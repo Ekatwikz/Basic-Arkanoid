@@ -13,7 +13,6 @@
 
 
 // Bonus for any found bugs in the framework!
-
 class Sprite;
 
 FRAMEWORK_API Sprite* createSprite(const char* path);
@@ -75,6 +74,5 @@ public:
 
 	virtual ~Framework() {};
 };
-
 
 FRAMEWORK_API int run(Framework*);
