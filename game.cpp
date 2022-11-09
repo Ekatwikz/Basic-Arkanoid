@@ -1,7 +1,7 @@
 #include "Framework.h"
 
 #include "Game.h"
-#include "getResolution.h"
+#include "GetArg.h"
 
 using GetArg::Resolution;
 using GetArg::getResolution;

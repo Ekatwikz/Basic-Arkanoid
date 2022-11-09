@@ -1,3 +1,7 @@
+# output:
 *.exe
+game
+
+# vim stuff:
 *.swp
 *~

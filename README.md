@@ -1,6 +1,6 @@
 # Barebones Arkanoid Clone
 ### Using C++ and a healthy (over)dose of inheritance and templates
-DLLs and mysterious `Framework.h` header courtesy of [Dragon's Lake application process](https://dragonslake.com/join-the-team/)
+[SDL2](https://www.libsdl.org/) wrapper framework courtesy of [Dragon's Lake application process](https://dragonslake.com/join-the-team/)
 
 # TODO:
 - Add blocks as `MoveableEntity`s
