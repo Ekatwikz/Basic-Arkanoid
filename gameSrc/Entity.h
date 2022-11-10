@@ -13,7 +13,7 @@ protected:
 	Vec2<> size;
 
 public:
-	Entity (Vec2<> position_, Vec2<> size_)
+	Entity (Vec2<> position_ = {0, 0}, Vec2<> size_= {0, 0})
 		: position{ position_ }, size{ size_ } { }
 
 	// NB: this is a non-symmetric op!

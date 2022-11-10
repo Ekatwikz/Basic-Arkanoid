@@ -9,9 +9,9 @@ protected:
 	float speed;
 	Vec2<float> velocity;
 
-	// convenient xd
-	MovableEntity& operator+=(const Vec2<>& vec) {
-		position += vec;
+	// convenient? xd
+	MovableEntity& operator+=(const Vec2<>& offset) {
+		position += offset;
 		return *this;
 	}
 

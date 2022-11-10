@@ -1,11 +1,10 @@
 # Barebones Arkanoid Clone
-### Using C++ and a healthy (over)dose of inheritance and templates
+### Using C++ and an overdose of inheritance and templates
 [SDL2](https://www.libsdl.org/) wrapper framework courtesy of [Dragon's Lake application process](https://dragonslake.com/join-the-team/)
 
 # TODO:
-- remove GameBoundary?
 - refactor makefile?
-- Add blocks as `MoveableEntity`s
+- Add blocks as `MoveableEntity`s?
 - Add block->point map idea I'd had
 - Add powerups also as `MoveableEntity`s
 - add player HP

@@ -3,15 +3,13 @@
 #include <vector>
 
 #include "Ball.h"
-#include "GameBoundary.h"
 #include "Player.h"
 
-class Game {
+class Game : private Entity {
 private:
 	bool gameStarted;
 	static Game* game;
 
-	GameBoundary gameBoundary;
 	Vec2<> mousePos;
 
 	Player* player;
@@ -48,13 +46,13 @@ public:
 	}
 
 	void render() {
-		player->setVelocity(player->hasCollided(gameBoundary));
+		player->setVelocity(player->hasCollided(*this));
 		player->move();
 
 		if (!gameStarted) {
 			ball->moveCenterTo(mousePos);
 		} else {
-			gameStarted = ball->setVelocity(ball->hasCollided(gameBoundary), ball->hasCollided(*player));
+			gameStarted = ball->setVelocity(ball->hasCollided(*this), ball->hasCollided(*player));
 
 			ball->move();
 		}
@@ -74,9 +72,9 @@ public:
 		player->updateKeyboard(key, isPressed);
 	}
 
-	void setSize(Vec2<> size) {
-		gameBoundary = { size };
-		player->moveCenterTo({ size.x / 2, static_cast<int>(size.y * 0.85F) });
+	void setSize(Vec2<> size_) {
+		size = size_;
+		player->moveCenterTo({ size_.x / 2, static_cast<int>(size_.y * 0.85F) });
 	}
 };
 
