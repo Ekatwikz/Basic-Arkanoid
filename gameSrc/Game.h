@@ -18,10 +18,14 @@ private:
 	Ball* ball;
 
 	std::vector<DrawableEntity*> drawables;
-	Game() {
+	Game() : gameStarted { false } {
 		drawables.push_back(player = new Player({50, 50}, "./data/49-Breakout-Tiles.png"));
 		drawables.push_back(ball = new Ball({0, 0}, "./data/63-Breakout-Tiles.png"));
 	}
+
+public:
+	Game& operator=(Game const&) = delete;
+	Game(const Game&) = delete;
 
 	~Game() {
 		for (DrawableEntity* pEnt : drawables) {
@@ -30,10 +34,6 @@ private:
 
 		drawables.clear();
 	}
-
-public:
-	Game& operator=(Game const&) = delete;
-	Game(const Game&) = delete;
 
 	static Game* getGame() {
 		if (!game) { [[ unlikely ]]

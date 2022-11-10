@@ -1,6 +1,7 @@
 # output:
 *.exe
 game
+blankGame
 
 # vim stuff:
 *.swp

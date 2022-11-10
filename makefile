@@ -1,29 +1,35 @@
-FILENAME=game
+DEFAULTFILENAME=game
 
 # 1 if windows
 # 0 if linux
-USINGWINDOWS=1
+USINGWINDOWS=0
 
 # 1 to clean every time
 # 0 to not
 AUTOCLEAN=1
 
 ifeq ($(USINGWINDOWS), 1)
-	PREDEFINES=-D _WINDOWS
 	DELETE=del
 	CLEAR=cls
-	OUTPUTEXTENSION=.exe
-	LDFLAGS=-L./lib/windows -lFrameworkRelease_x64
+
 	LAUNCH=
+	OUTPUTEXTENSION=.exe
 	CHECKLIBPATH=call checkLibPath.bat
+
+	PREDEFINES=_WINDOWS
+	SANITIZEFLAGS=
+	LDFLAGS=-L./lib/windows -lFrameworkRelease_x64
 else
-	PREDEFINES=
 	DELETE=rm
 	CLEAR=clear
-	OUTPUTEXTENSION=
-	LDFLAGS=-lSDL2 -lSDL2main -lSDL2_image
+
 	LAUNCH=./lib/launch.cpp
+	OUTPUTEXTENSION=
 	CHECKLIBPATH=
+
+	PREDEFINES=
+	LDFLAGS=-lSDL2 -lSDL2main -lSDL2_image
+	SANITIZEFLAGS=-fsanitize=address,undefined
 endif
 
 ifeq ($(AUTOCLEAN), 1)
@@ -32,21 +38,22 @@ else
 	SHOULDCLEAN=
 endif
 
-CC=g++
-CFLAGS=-std=c++20 -Wall -Wextra -Wpedantic -O0 -g $(PREDEFINES) -Wno-unused-parameter
-LIBSEARCH=-I ./gameSrc -I ./lib
+CXX=g++
+CXXFLAGS=-std=c++20 -Wall -Wextra -Wpedantic -O0 -g3 $(PREDEFINES:%=-D %) -Wno-unused-parameter $(SANITIZEFLAGS)
+INC=./gameSrc ./lib
 
 .PHONY: all clean clear
 
-all: $(SHOULDCLEAN) clear $(FILENAME)
+all: $(SHOULDCLEAN) clear $(DEFAULTFILENAME)
 
-$(FILENAME): $(FILENAME).cpp
+$(DEFAULTFILENAME): $(DEFAULTFILENAME).cpp
+%: %.cpp
 	@$(CHECKLIBPATH)
-	@echo === Compiling $(FILENAME)$(OUTPUTEXTENSION) ===
-	@$(CC) $(CFLAGS) $(LIBSEARCH) $(LAUNCH) $(FILENAME).cpp -o $(FILENAME)$(OUTPUTEXTENSION) $(LDFLAGS)
+	@echo === Compiling $< to $@$(OUTPUTEXTENSION) ===
+	@$(CXX) $(CXXFLAGS) $(INC:%=-I %) $< $(LAUNCH) -o $@$(OUTPUTEXTENSION) $(LDFLAGS)
 
 clean:
-	-@$(DELETE) $(FILENAME)$(OUTPUTEXTENSION)
+	-@$(DELETE) $(DEFAULTFILENAME)$(OUTPUTEXTENSION)
 
 clear:
 	@$(CLEAR)

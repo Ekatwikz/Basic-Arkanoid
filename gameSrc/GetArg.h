@@ -13,21 +13,22 @@ namespace GetArg {
 			return loc ? loc - s : -1;
 		}
 
-	Resolution getResolution(int argc, char** argv) {
-		Resolution res;
-		if (argc > 2 && !strcmp(argv[1], "-window")) {
-			int xPos = charPos(argv[2], 'x');
+	Resolution __attribute__(( nonnull(2) ))
+		getResolution (int argc, char** argv) {
+			Resolution res;
+			if (argc > 2 && !strcmp(argv[1], "-window")) {
+				int xPos = charPos(argv[2], 'x');
 
-			if (xPos < 0) {
-				return res;
+				if (xPos < 0) {
+					return res;
+				}
+
+				argv[2][xPos] = '\0';
+
+				res.x = atoi(argv[2]);
+				res.y = atoi(argv[2] + xPos + 1);
 			}
 
-			argv[2][xPos] = '\0';
-
-			res.x = atoi(argv[2]);
-			res.y = atoi(argv[2] + xPos + 1);
+			return res;
 		}
-
-		return res;
-	}
 }

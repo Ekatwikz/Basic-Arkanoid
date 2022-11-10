@@ -11,7 +11,6 @@
 #include "SDL2/SDL_image.h"
 
 #include "Framework.h"
- 
 
 static SDL_Renderer *g_renderer;
 static int g_width = 800;
@@ -40,7 +39,6 @@ FRAMEWORK_API Sprite* createSprite(const char* path)
 		fprintf(stderr, "Couldn't load %s: %s\n", path, SDL_GetError());
 		return nullptr;
 	}
-
 
 	Sprite* s = new Sprite();
 	if (!s)
@@ -114,8 +112,6 @@ FRAMEWORK_API unsigned int getTickCount()
 	return SDL_GetTicks();
 }
 
-
-
 /* Draw a Gimpish background pattern to show transparency in the image */
 static void draw_background(SDL_Renderer *renderer, int w, int h)
 {
@@ -140,7 +136,6 @@ static void draw_background(SDL_Renderer *renderer, int w, int h)
         }
     }
 }
-
 
 FRAMEWORK_API void drawTestBackground()
 {

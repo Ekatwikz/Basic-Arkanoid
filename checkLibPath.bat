@@ -16,7 +16,7 @@ if %libPathIsInPath% == 0 (
 	echo "%libPath%" is not in the %%PATH%% environment variable.
 	echo To add it, see:
 	echo https://www.computerhope.com/issues/ch000549.htm
-	echo You may need to restart your terminal after.
+	echo You may need to restart this terminal after.
 	echo.
 
 	exit /b -1

@@ -16,7 +16,8 @@ public:
 		velocity = keyboard.getVec2();
 	}
 
-	Player (Vec2<> position, const char* spritePath) : MovableEntity{ position, defaultSize, spritePath, 2 } { }
+	Player (Vec2<> position, const char* spritePath)
+		: MovableEntity{ position, defaultSize, spritePath, 2 } { }
 
 	void setVelocity(CollisionType boundaryCollision) {
 		if ( (velocity.x < 0 && boundaryCollision & Collision::LEFT)

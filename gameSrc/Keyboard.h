@@ -4,26 +4,28 @@
 
 #include "Vec2.h"
 
-typedef struct KeyPair {
+class KeyPair {
+private:
 	int keyStates[2];
-	enum PossibleKeyStates { UNPRESSED, PRESSED, STANDBY = -1 };
 
+public:
+	enum PossibleKeyState { UNPRESSED, PRESSED, STANDBY = -1 };
 	void setPressed(bool pos, bool state) {
 		// switch state of other position
-		int oldOther = keyStates[!pos];
-		if ((state == PRESSED && oldOther == PRESSED) || (state == UNPRESSED && oldOther == STANDBY)) {
-			keyStates[!pos] *= -1;
+		int* oldOther = &keyStates[!pos];
+		if ((state == PRESSED && *oldOther == PRESSED)
+				|| (state == UNPRESSED && *oldOther == STANDBY)) {
+			*oldOther *= -1;
 		}
 
 		// set state of new position
 		keyStates[pos] = state;
 	}
 
-	int operator[](int pos) const {
-		return keyStates[pos];
+	PossibleKeyState operator[](bool pos) const {
+		return static_cast<PossibleKeyState>(keyStates[pos]);
 	}
-} KeyPair;
-
+};
 
 class KeyboardState {
 private:

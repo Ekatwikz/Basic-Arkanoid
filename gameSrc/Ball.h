@@ -8,7 +8,8 @@ private:
 	static constexpr float defaultSpeed = 1;
 
 public:
-	Ball (Vec2<> position, const char* spritePath) : MovableEntity{ position, defaultSize, spritePath, defaultSpeed } { velocity = {2, 2}; /*tmp*/ }
+	Ball (Vec2<> position, const char* spritePath)
+		: MovableEntity{ position, defaultSize, spritePath, defaultSpeed, {2, 2} /*tmp*/ } { }
 
 	// false if bottom bounce
 	bool setVelocity(CollisionType boundaryCollision, CollisionType playerCollision) {

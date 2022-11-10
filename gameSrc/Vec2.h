@@ -16,6 +16,7 @@ struct Vec2 {
 	Vec2& operator*=(U val) {
 		x *= val;
 		y *= val;
+
 		return *this;
 	}
 

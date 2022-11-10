@@ -3,6 +3,8 @@
 [SDL2](https://www.libsdl.org/) wrapper framework courtesy of [Dragon's Lake application process](https://dragonslake.com/join-the-team/)
 
 # TODO:
+- remove GameBoundary?
+- refactor makefile?
 - Add blocks as `MoveableEntity`s
 - Add block->point map idea I'd had
 - Add powerups also as `MoveableEntity`s
