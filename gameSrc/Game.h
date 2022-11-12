@@ -46,14 +46,13 @@ public:
 	}
 
 	void render() {
-		player->setVelocity(player->hasCollided(*this));
+		player->setVelocity(this->edgesCollided(*player));
 		player->move();
 
 		if (!gameStarted) {
 			ball->moveCenterTo(mousePos);
 		} else {
-			gameStarted = ball->setVelocity(ball->hasCollided(*this), ball->hasCollided(*player));
-
+			gameStarted = ball->setVelocity(this->edgesCollided(*ball), player->edgesCollided(*ball));
 			ball->move();
 		}
 

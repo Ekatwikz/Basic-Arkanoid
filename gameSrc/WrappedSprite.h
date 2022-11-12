@@ -1,30 +1,30 @@
 #pragma once
 
-#include "Framework.h"
+#include "../lib/Framework.h"
 
 // custom copy/move semantics means single responsibility?
 // also, RAII?
 // idk maybe there's a better way to think about this
 class WrappedSprite {
 private:
-    Sprite* sprite;
+	Sprite* sprite;
 
 public:
-    WrappedSprite(const char* spritePath)
-        : sprite { createSprite(spritePath) } { }
+	WrappedSprite(const char* spritePath)
+		: sprite { createSprite(spritePath) } { }
 
-    ~WrappedSprite() {
+	~WrappedSprite() {
 		destroySprite(sprite);
 	}
 
-    Sprite* operator&() const {
-        return sprite;
-    }
+	[[ nodiscard ]] Sprite* operator&() const {
+		return sprite;
+	}
 
-    WrappedSprite& operator=(WrappedSprite const&) = delete;
+	WrappedSprite& operator=(const WrappedSprite&) = delete;
 	WrappedSprite(const WrappedSprite&) = delete;
 
-    // TODO: these shouldn't be deleted
+	// TODO: these shouldn't be deleted
 	WrappedSprite& operator=(WrappedSprite&&) = delete;
 	WrappedSprite(WrappedSprite&&) = delete;
 };

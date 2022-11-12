@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Framework.h"
-
 #include "Entity.h"
 #include "WrappedSprite.h"
 

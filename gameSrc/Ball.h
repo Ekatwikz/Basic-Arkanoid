@@ -5,15 +5,16 @@
 class Ball : public MovableEntity {
 private:
 	static constexpr Vec2<> defaultSize { 20, 20 };
-	static constexpr float defaultSpeed = 1;
+	static constexpr float defaultSpeed = 2;
 
 public:
 	Ball (Vec2<> position, const char* spritePath)
-		: MovableEntity{ position, defaultSize, spritePath, defaultSpeed, {2, 2} /*tmp*/ } { }
+		: MovableEntity{ position, defaultSize, spritePath, defaultSpeed, {1, 1} /*tmp*/ } { }
 
 	// false if bottom bounce
 	bool setVelocity(CollisionType boundaryCollision, CollisionType playerCollision) {
 		if (boundaryCollision & Collision::BOTTOM) { [[ unlikely ]]
+			velocity = {1, 1}; // tmp
 			speed = defaultSpeed;
 			return false;
 		}

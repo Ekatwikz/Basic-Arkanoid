@@ -1,19 +1,11 @@
 #pragma once
 
-#include "Framework.h"
-
 #include "DrawableEntity.h"
 
 class MovableEntity : public DrawableEntity {
 protected:
 	float speed;
 	Vec2<float> velocity;
-
-	// convenient? xd
-	MovableEntity& operator+=(const Vec2<>& offset) {
-		position += offset;
-		return *this;
-	}
 
 public:
 	MovableEntity (Vec2<> position, Vec2<> size, const char* spritePath, float speed_ = 1, Vec2<float> velocity_ = {0, 0})

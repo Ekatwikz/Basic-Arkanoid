@@ -1,9 +1,7 @@
 #pragma once
 
 #include "MovableEntity.h"
-
 #include "Keyboard.h"
-#include "Framework.h"
 
 class Player : public MovableEntity {
 private:
