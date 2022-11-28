@@ -2,7 +2,7 @@ DEFAULTFILES=game
 
 # 1 if windows
 # 0 if linux
-USINGWINDOWS=1
+USINGWINDOWS=0
 
 # 1 to clean every time
 # 0 to not
@@ -18,6 +18,7 @@ ifeq ($(USINGWINDOWS), 1)
 	OUTPUTEXTENSION=.exe
 	CHECKLIBPATH=call checkLibPath.bat
 
+	INC=
 	LIBPATHS=./lib/windows
 	LIBRARIES=FrameworkRelease_x64
 
@@ -31,6 +32,7 @@ else
 	OUTPUTEXTENSION=
 	CHECKLIBPATH=
 
+	INC=/usr/include/SDL2
 	LIBPATHS=
 	LIBRARIES=SDL2 SDL2main SDL2_image
 
@@ -49,7 +51,7 @@ WARNINGS=all extra pedantic no-unused-parameter
 CXX=g++
 CXXFLAGS=-std=c++20 $(WARNINGS:%=-W%) $(DEBUGFLAGS) $(PREDEFINES:%=-D %) $(SANITIZEFLAGS)
 LDFLAGS=$(LIBPATHS:%=-L%) $(LIBRARIES:%=-l%)
-INC=./gameSrc ./lib
+INC+=./gameSrc ./lib
 
 .PHONY: all clean clear
 
