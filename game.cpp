@@ -1,3 +1,4 @@
+#include <memory>
 #include "./lib/Framework.h"
 
 #include "Game.h"
@@ -24,8 +25,7 @@ public:
 		return true;
 	}
 
-	virtual void Close() {
-	}
+	virtual void Close() { }
 
 	virtual bool Tick() {
 		drawTestBackground();
@@ -58,5 +58,5 @@ public:
 };
 
 int main(int argc, char** argv) {
-	return run(new MyFramework(getResolution(argc, argv)));
+	return run(std::make_unique<MyFramework>( getResolution(argc, argv) ).get());
 }
