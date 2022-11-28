@@ -5,7 +5,7 @@
 
 class KeyPair {
 private:
-	int keyStates[2], direction;
+	int keyStates[2], direction = 0;
 
 public:
 	enum PossibleKeyState { UNPRESSED, PRESSED, STANDBY = -1 };
@@ -37,34 +37,32 @@ public:
 };
 
 class KeyboardState {
-	private:
-		KeyPair leftRight, upDown;
-		enum { KB_LEFT, KB_RIGHT };
-		enum { KB_UP, KB_DOWN };
+private:
+	KeyPair leftRight, upDown;
+	enum { KB_LEFT, KB_RIGHT };
+	enum { KB_UP, KB_DOWN };
 
-		Vec2<> vec;
-
-	public: 
-		void handleKeyPress(FRKey key, bool isPressed) {
-			switch (key) {
-				case FRKey::LEFT:
-					leftRight.setPressed(KB_LEFT, isPressed);
-					break;
-				case FRKey::RIGHT:
-					leftRight.setPressed(KB_RIGHT, isPressed);
-					break;
-				case FRKey::UP:
-					upDown.setPressed(KB_UP, isPressed);
-					break;
-				case FRKey::DOWN:
-					upDown.setPressed(KB_DOWN, isPressed);
-					break;
-				default: // ??
-					break;
-			}
+public: 
+	void handleKeyPress(FRKey key, bool isPressed) {
+		switch (key) {
+			case FRKey::LEFT:
+				leftRight.setPressed(KB_LEFT, isPressed);
+				break;
+			case FRKey::RIGHT:
+				leftRight.setPressed(KB_RIGHT, isPressed);
+				break;
+			case FRKey::UP:
+				upDown.setPressed(KB_UP, isPressed);
+				break;
+			case FRKey::DOWN:
+				upDown.setPressed(KB_DOWN, isPressed);
+				break;
+			default: // ??
+				break;
 		}
+	}
 
-		[[ nodiscard ]] Vec2<> getVec2() const {
-			return { leftRight.getDirection(), upDown.getDirection() };
-		}
+	[[ nodiscard ]] Vec2<> getVec2() const {
+		return { leftRight.getDirection(), upDown.getDirection() };
+	}
 };
